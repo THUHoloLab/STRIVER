@@ -11,6 +11,10 @@ ky = pi/pxsize*(-1:2/ny:1-2/ny);
 % wave number
 k = 2*pi/wavlen;
 
+% remove evanescent orders
+ind = (KX.^2+KY.^2 >= k^2);
+KX(ind) = 0; KY(ind) = 0;
+
 % circular convoluion via ffts
 inputFT = fftshift(fft2(w_i));
 H = exp(1i*dist*sqrt(k^2-KX.^2-KY.^2));
