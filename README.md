@@ -7,7 +7,7 @@
 _______
 
 <p align="left">
-<img src="figs/fig_comparison.png", width='600'>
+<img src="figs/fig_comparison.png", width='700'>
 </p>
 
 Holography is a powerful technique that records the amplitude and phase of an optical field simultaneously, enabling a variety of applications such as label-free biomedical analysis and coherent diffraction imaging. Holographic recording without a reference wave has been long pursued because it obviates the high experimental requirements of conventional interferometric methods. However, due to the ill-posed nature of the underlying phase retrieval problem, reference-free holographic imaging is faced with an inherent tradeoff between imaging fidelity and temporal resolution. Here, we propose a general computational framework, termed **spatiotemporally regularized inversion (STRIVER)**, to achieve motion-resolved, reference-free holographic imaging with high fidelity. Specifically, STRIVER leverages signal priors in the spatiotemporal domain to jointly eliminate phase ambiguities and motion artifacts, and, when combined with diversity measurement schemes, produces a physically reliable, time-resolved holographic video from a series of intensity-only measurements. We experimentally demonstrate STRIVER in near-field ptychography, where dynamic holographic imaging of freely swimming paramecia is performed at a framerate-limited speed of 112 fps. The proposed method can be potentially extended to other measurement schemes, spectral regimes, and computational imaging modalities, pushing the temporal resolution toward higher limits.
