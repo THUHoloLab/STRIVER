@@ -40,13 +40,13 @@ Table 1 and Figure 3 show the runtime (200 iterations) for different video dimen
 |  512  $\times$ 512  $\times$ 10  | 159.19 | 22.71  |  779.55     | 59.57       |
 |  1024 $\times$ 1024 $\times$ 10  | 611.11 | 97.81  |  3093.24    | 299.10      |
 
-<p align="left"> <strong>Table 1</strong>. Runtimes (for 200 iterations) using GPU and CPU for different image dimensions.</p>
+<p align="left"> <strong>Table 1</strong>. Runtimes (for 200 iterations) using GPU and CPU for different sample dimensions.</p>
 
 <p align="left">
 <img src="figs/fig_runtime.png", width='400'>
 </p>
 
-<p align="left"> <strong>Figure 3</strong>. Runtimes (for 200 iterations) using GPU and CPU for different image dimensions.</p>
+<p align="left"> <strong>Figure 3</strong>. Runtimes (200 iterations) using CPU and GPU for different sample dimensions. The number in the parenthesis denotes the subiteration number for the proximal update.</p>
 
 ## Theories and References
 For algorithm derivation and implementation details, please refer to our paper:
