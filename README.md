@@ -1,4 +1,4 @@
-# STRIVER: Spatiotemporally regularized inversion for motion-resolved computational imaging
+# STRIVER: SpatioTemporally Regularized InVERsion for motion-resolved computational imaging
 
 Authors: **[Yunhui Gao](https://github.com/Yunhui-Gao)** (gyh21@mails.tsinghua.edu.cn) and **[Liangcai Cao](http://faculty.dpi.tsinghua.edu.cn/clc.html)** (clc@tsinghua.edu.cn)
 
