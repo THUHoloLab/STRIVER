@@ -51,4 +51,4 @@ Table 1 and Figure 3 show the runtime (200 iterations) for different video dimen
 ## Theories and References
 For algorithm derivation and implementation details, please refer to our paper:
 
-[Yunhui Gao and Liangcai Cao, "Motion-resolved, reference-free holographic imaging via spatiotemporally regularized inversion," *Optica* **11**(1), XXXX-XXXX (2024).](https://doi.org/10.1364/OPTICA.506572)
+[Yunhui Gao and Liangcai Cao, "Motion-resolved, reference-free holographic imaging via spatiotemporally regularized inversion," *Optica* **11**(1), 32-41 (2024).](https://doi.org/10.1364/OPTICA.506572)
