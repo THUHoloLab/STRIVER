@@ -4,6 +4,11 @@
 % This code provides a simple demonstration of dynamic phase retrieval via
 % spatiotemporal total variation regularization.
 %
+% Reference:
+%   - Y. Gao and L. Cao, "Motion-resolved, reference-free holographic
+%     imaging via spatiotemporally regularized inversion," Optica 11(1), 
+%     32-41 (2024).
+% 
 % Author: Yunhui Gao (gyh21@mails.tsinghua.edu.cn)
 % =========================================================================
 %%
@@ -58,22 +63,22 @@ vid = (vid - min(vid(:)))./(max(vid(:)) - min(vid(:)));
 x = (1-0.5*vid).*exp(1i*(pi/2*vid));    % sample transmission function
 
 % forward model
-T   = @(x,k) imshift(x, params.shift(1,k)/params.pxsize, params.shift(2,k)/params.pxsize);  
-TH  = @(x,k) imshift(x,-params.shift(1,k)/params.pxsize,-params.shift(2,k)/params.pxsize);
-C0  = @(x)   imgcrop(x,shift_range);
-C0T = @(x)   zeropad(x,shift_range);
+T   = @(x,k) imshift(x, params.shift(1,k)/params.pxsize, params.shift(2,k)/params.pxsize);  % lateral displacement operator
+TH  = @(x,k) imshift(x,-params.shift(1,k)/params.pxsize,-params.shift(2,k)/params.pxsize);  % Hermitian operator of T
+C0  = @(x)   imgcrop(x,shift_range);                                    % image cropping operator
+C0T = @(x)   zeropad(x,shift_range);                                    % transpose operator of C0
 Q1  = @(x)   propagate(x, params.dist_1,params.pxsize,params.wavlen);   % free-space propagation operator from sample to diffuser
 Q1H = @(x)   propagate(x,-params.dist_1,params.pxsize,params.wavlen);   % Hermitian operator of Q1
 C1  = @(x)   imgcrop(x,padpixels_1);                                    % image cropping operator
 C1T = @(x)   zeropad(x,padpixels_1);                                    % transpose operator of C1
 M   = @(x)   x.*mask;                                                   % diffuser modulation operator
 MH  = @(x)   x.*conj(mask);                                             % Hermitian operator of M
-Q2  = @(x)   propagate(x, params.dist_2,params.pxsize,params.wavlen);
-Q2H = @(x)   propagate(x,-params.dist_2,params.pxsize,params.wavlen);
-C2  = @(x)   imgcrop(x,padpixels_2);
-C2T = @(x)   zeropad(x,padpixels_2);
-A   = @(x,k) C2(Q2(M(C1(Q1(C0(T(x,k)))))));
-AH  = @(x,k) TH(C0T(Q1H(C1T(MH(Q2H(C2T(x)))))),k);
+Q2  = @(x)   propagate(x, params.dist_2,params.pxsize,params.wavlen);   % free-space propagation operator from diffuser to sensor
+Q2H = @(x)   propagate(x,-params.dist_2,params.pxsize,params.wavlen);   % Hermitian operator of Q2
+C2  = @(x)   imgcrop(x,padpixels_2);                                    % image cropping operator
+C2T = @(x)   zeropad(x,padpixels_2);                                    % transpose operator of C2
+A   = @(x,k) C2(Q2(M(C1(Q1(C0(T(x,k)))))));                             % overall measurement operator
+AH  = @(x,k) TH(C0T(Q1H(C1T(MH(Q2H(C2T(x)))))),k);                      % Hermitian operator of A
 
 % generate data
 rng(0)           % random seed, for reproducibility
@@ -111,22 +116,23 @@ lams_t = [1e-2, 1e-3];                          % regularization parameter (temp
 
 alph = 10;              % hyperparameter for tuning regularization weights
 gam  = 2;               % step size (see the paper for details)
-n_iters    = 200;       % number of iterations (main loop)
+n_iters    = 20;       % number of iterations (main loop)
 n_subiters = 1;         % number of subiterations (proximal update)
 
 % options
 opts.verbose = true;        % display status during the iterations
 opts.errfunc = [];          % user-defined error metrics
 opts.lams = @(iter) reg_param(iter, n_iters/2, alph, [lams_s(1),lams_s(1),lams_t(1)], [lams_s(2),lams_s(2),lams_t(2)]);
+opts.display = true;        % display intermediate results during the iterations
 
 % function handles to calculate objective function and gradients
-myF     = @(x) F(x,y,A,K,K_recon);
-mydF    = @(x) dF(x,y,A,AH,K,K_recon);
-myR     = @(x) normTV(x);
-myproxR = @(x,gam) proxTV(x,gam,n_subiters);
+myF     = @(x) F(x,y,A,K,K_recon);              % data-fidelity function 
+mydF    = @(x) dF(x,y,A,AH,K,K_recon);          % gradient of the data-fidelity function
+myR     = @(x) normTV(x);                       % regularization function
+myproxR = @(x,gam) proxTV(x,gam,n_subiters);    % proximal operator for the regularization function
 
 % run the proximal gradient algorithm
-[x_est,J_vals,runtimes] = fista_visualize(x_init,myF,mydF,myR,myproxR,gam,n_iters,opts);
+[x_est,J_vals,runtimes] = APG(x_init,myF,mydF,myR,myproxR,gam,n_iters,opts);
 
 %%
 % =========================================================================

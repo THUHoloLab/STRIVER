@@ -4,6 +4,11 @@
 % This code provides a simple demonstration of dynamic phase retrieval via
 % spatiotemporal total variation regularization.
 %
+% Reference:
+%   - Y. Gao and L. Cao, "Motion-resolved, reference-free holographic
+%     imaging via spatiotemporally regularized inversion," Optica 11(1), 
+%     32-41 (2024).
+% 
 % Author: Yunhui Gao (gyh21@mails.tsinghua.edu.cn)
 % =========================================================================
 %%
@@ -62,26 +67,26 @@ HT  = nan(N1,N2,K);
 for k = 1:K
     HT(:,:,k)  = fftshift(transfunc_imshift(N1,N2,params.shift(1,k)/params.pxsize, params.shift(2,k)/params.pxsize));
 end
-HQ1 = fftshift(transfunc_propagate(N1-2*shift_range,N2-2*shift_range, params.dist_1,params.pxsize,params.wavlen)); % forward propagation
-HQ2 = fftshift(transfunc_propagate(M1+2*padpixels_2,M2+2*padpixels_2, params.dist_2,params.pxsize,params.wavlen)); % forward propagation
+HQ1 = fftshift(transfunc_propagate(N1-2*shift_range,N2-2*shift_range, params.dist_1,params.pxsize,params.wavlen)); % forward propagation transfer function (from sample to diffuser)
+HQ2 = fftshift(transfunc_propagate(M1+2*padpixels_2,M2+2*padpixels_2, params.dist_2,params.pxsize,params.wavlen)); % forward propagation transfer function (from diffuser to sensor)
 
 % forward model
-T   = @(x,k) ifft2(fft2(x).*HT(:,:,k));
-TH  = @(x,k) ifft2(fft2(x).*conj(HT(:,:,k)));
-C0  = @(x)   imgcrop(x,shift_range);
-C0T = @(x)   zeropad(x,shift_range);
-Q1  = @(x)   ifft2(fft2(x).*HQ1);
-Q1H = @(x)   ifft2(fft2(x).*conj(HQ1));
-C1  = @(x)   imgcrop(x,padpixels_1);
-C1T = @(x)   zeropad(x,padpixels_1);
-M   = @(x)   x.*mask;
-MH  = @(x)   x.*conj(mask);
-Q2  = @(x)   ifft2(fft2(x).*HQ2);
-Q2H = @(x)   ifft2(fft2(x).*conj(HQ2));
-C2  = @(x)   imgcrop(x,padpixels_2);
-C2T = @(x)   zeropad(x,padpixels_2);
-A   = @(x,k) C2(Q2(M(C1(Q1(C0(T(x,k)))))));
-AH  = @(x,k) TH(C0T(Q1H(C1T(MH(Q2H(C2T(x)))))),k);
+T   = @(x,k) ifft2(fft2(x).*HT(:,:,k));             % lateral displacement operator
+TH  = @(x,k) ifft2(fft2(x).*conj(HT(:,:,k)));       % Hermitian operator of T
+C0  = @(x)   imgcrop(x,shift_range);                % image cropping operator
+C0T = @(x)   zeropad(x,shift_range);                % transpose operator of C0
+Q1  = @(x)   ifft2(fft2(x).*HQ1);                   % free-space propagation operator from sample to diffuser
+Q1H = @(x)   ifft2(fft2(x).*conj(HQ1));             % Hermitian operator of Q1
+C1  = @(x)   imgcrop(x,padpixels_1);                % image cropping operator
+C1T = @(x)   zeropad(x,padpixels_1);                % transpose operator of C1
+M   = @(x)   x.*mask;                               % diffuser modulation operator
+MH  = @(x)   x.*conj(mask);                         % Hermitian operator of M
+Q2  = @(x)   ifft2(fft2(x).*HQ2);                   % free-space propagation operator from diffuser to sensor
+Q2H = @(x)   ifft2(fft2(x).*conj(HQ2));             % Hermitian operator of Q2
+C2  = @(x)   imgcrop(x,padpixels_2);                % image cropping operator
+C2T = @(x)   zeropad(x,padpixels_2);                % transpose operator of C2
+A   = @(x,k) C2(Q2(M(C1(Q1(C0(T(x,k)))))));         % overall measurement operator
+AH  = @(x,k) TH(C0T(Q1H(C1T(MH(Q2H(C2T(x)))))),k);  % Hermitian operator of A
 
 % generate data
 rng(0)           % random seed, for reproducibility
