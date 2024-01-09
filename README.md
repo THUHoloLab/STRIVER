@@ -1,4 +1,4 @@
-# STRIVER: SpatioTemporally Regularized InVERsion for motion-resolved computational imaging
+# [**STRIVER**: **S**patio**T**emporally **R**egularized **I**n**VER**sion for motion-resolved computational imaging](https://doi.org/10.1364/OPTICA.506572)
 
 Authors: **[Yunhui Gao](https://github.com/Yunhui-Gao)** (gyh21@mails.tsinghua.edu.cn) and **[Liangcai Cao](https://scholar.google.com/citations?user=FYYb_-wAAAAJ&hl=en)** (clc@tsinghua.edu.cn)
 
@@ -33,12 +33,12 @@ The basic demo codes provide intuitive and proof-of-concept implementations for 
 
 Table 1 and Figure 3 show the runtime (200 iterations) for different video dimensions. The results are obtained using a laptop computer with Intel&reg; Core&trade; i7-12700H (2.30 GHz) CPU and Nvidia GeForce RTX&trade; 3060 GPU.
 
-|  Video dimension  | CPU (1) | GPU (1) | CPU (10) | GPU (10) |
-|  :----:                          | :----: | :----: | :----:      | :----:      |
-|  128  $\times$ 128  $\times$ 10  | 10.15 s | 5.05 s  |  49.63 s     | 7.53 s       |
-|  256  $\times$ 256  $\times$ 10  | 44.27 s | 8.78 s  |  200.67 s    | 17.98 s      |
-|  512  $\times$ 512  $\times$ 10  | 159.19 s | 22.71 s |  779.55 s    | 59.57 s      |
-|  1024 $\times$ 1024 $\times$ 10  | 611.11 s | 97.81 s |  3093.24 s   | 299.10 s     |
+|  Video dimension                 | CPU (1)   | GPU (1)  | CPU (10)    | GPU (10)  |
+|  :----:                          | :----:    | :----:   | :----:      | :----:    |
+|  128  $\times$ 128  $\times$ 10  | 10.15 s   | 5.05 s   |  49.63 s    | 7.53 s    |
+|  256  $\times$ 256  $\times$ 10  | 44.27 s   | 8.78 s   |  200.67 s   | 17.98 s   |
+|  512  $\times$ 512  $\times$ 10  | 159.19 s  | 22.71 s  |  779.55 s   | 59.57 s   |
+|  1024 $\times$ 1024 $\times$ 10  | 611.11 s  | 97.81 s  |  3093.24 s  | 299.10 s  |
 
 <p align="left"> <strong>Table 1</strong>. Runtimes (for 200 iterations) using GPU and CPU for different sample dimensions. The number in the parenthesis denotes the subiteration number for the proximal update.</p>
 
@@ -52,3 +52,18 @@ Table 1 and Figure 3 show the runtime (200 iterations) for different video dimen
 For algorithm derivation and implementation details, please refer to our paper:
 
 [Yunhui Gao and Liangcai Cao, "Motion-resolved, reference-free holographic imaging via spatiotemporally regularized inversion," *Optica* **11**(1), 32-41 (2024).](https://doi.org/10.1364/OPTICA.506572)
+
+## Citation
+
+```BibTex
+@article{gao2024motion,
+  title={Motion-resolved, reference-free holographic imaging via spatiotemporally regularized inversion},
+  author={Gao, Yunhui and Cao, Liangcai},
+  journal={Optica},
+  volume={11},
+  number={1},
+  pages={32--41},
+  year={2024},
+  publisher={Optica Publishing Group}
+}
+```
