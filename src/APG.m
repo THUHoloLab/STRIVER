@@ -53,7 +53,7 @@ end
 timer = tic;
 for iter = 1:n_iters
     
-    % gradient projection update
+    % proximal gradient update
     x_next = proxR(z - gamma*dF(z),gamma);
     J_vals(iter+1) = F(x_next)+R(x_next);
     z = x_next + (iter/(iter+3))*(x_next - x);
