@@ -7,7 +7,7 @@ Authors: **[Yunhui Gao](https://github.com/Yunhui-Gao)** (gyh21@mails.tsinghua.e
 _______
 
 <p align="left">
-<img src="figs/fig_comparison.png", width='800'>
+<img src="imgs/fig_comparison.png", width='800'>
 </p>
 
 <p align="left"> <strong>Figure 1</strong>. Comparison of different holographic reconstruction methods in imaging a swimming paramecium.</p>
