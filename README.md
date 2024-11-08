@@ -27,9 +27,10 @@ The code has been implemented using Matlab 2022b. Older visions may be sufficien
 
 ## Quick Start
 - **Phase retrieval using simulated data.** Run [`demo_sim.m`](https://github.com/THUHoloLab/STRIVER/blob/master/main/demo_sim.m) with default parameters.
+- **Phase retrieval using experimental data.** First follow the instruction [here](https://github.com/THUHoloLab/STRIVER/tree/master/data/exp) to download the data. Then run [`demo_exp.m`](https://github.com/THUHoloLab/STRIVER/blob/master/main/demo_exp.m) with default parameters.
 
 ## Accelerated Implementations
-The basic demo codes provide intuitive and proof-of-concept implementations for beginners, but are far from efficient. To facilitate faster reconstruction, we provide an optimized version based on CPU or GPU, which can be found at [`demo_sim_fast.m`](https://github.com/THUHoloLab/STRIVER/blob/master/main/demo_sim_fast.m). To enable GPU usage, simply set `gpu = true;` in the code.
+The basic demo codes provide intuitive and proof-of-concept implementations for beginners, but are far from efficient. To facilitate faster reconstruction, we provide an optimized version based on CPU or GPU, which can be found at [`demo_sim_fast.m`](https://github.com/THUHoloLab/STRIVER/blob/master/main/demo_sim_fast.m) and [`demo_exp_fast.m`](https://github.com/THUHoloLab/STRIVER/blob/master/main/demo_exp_fast.m) for simulation and experimental data, respectively. To enable GPU usage, simply set `gpu = true;` in the code.
 
 Table 1 and Figure 3 show the runtime (200 iterations) for different video dimensions. The results are obtained using a laptop computer with Intel&reg; Core&trade; i7-12700H (2.30 GHz) CPU and Nvidia GeForce RTX&trade; 3060 GPU.
 

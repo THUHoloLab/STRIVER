@@ -116,7 +116,7 @@ lams_t = [1e-2, 1e-3];                          % regularization parameter (temp
 
 alph = 10;              % hyperparameter for tuning regularization weights
 gam  = 2;               % step size (see the paper for details)
-n_iters    = 20;       % number of iterations (main loop)
+n_iters    = 200;       % number of iterations (main loop)
 n_subiters = 1;         % number of subiterations (proximal update)
 
 % options
